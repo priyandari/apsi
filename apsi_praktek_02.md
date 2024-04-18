@@ -385,7 +385,7 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
                <li>Nama Produk: {{$produk->nama_produk}} </li>
                <li>Deskripsi: {{$produk->deskripsi}} </li>
                <li>Aturan Sewa: {{$produk->aturan_sewa}} </li>
-               <li>Image: <img src="{{ asset('public/img/'.$produk->image) }}" width="70px" height="70px" alt="Image"> </li>
+               <li>Image: <img src="{{ asset('img/'.$produk->image) }}" width="70px" height="70px" alt="Image"> </li>
                </ul>
            </div>
        </div>
@@ -527,10 +527,10 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
     https://laravel.com/docs/10.x/eloquent-resources#pagination
    
    ```php
-   return response()->view('produk.index',['produk'=>Produk::paginate(2)]);
+   return response()->view('produk.index',['produks'=>Produk::paginate(2)]);
    ```
 
-2. Modifikasi view `produk/index.blade.php` dengan menambahkan
+2. Modifikasi view `produk/index.blade.php` dengan menambahkan baris perintah ini setelah `</table> </div>`
    
    ```php
    <div class="d-flex justify-content-end">
@@ -552,15 +552,28 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
    }
    ```
 
+4. Lihat hasilnya
+
+
 ## 7. View Data dengan Searching
 
-1. Modifikasi Controller bagian index.
+1. Modifikasi `ProdukController.php` bagian index.
     // Tambahan untuk search
     `use Illuminate\Database\Eloquent\Builder;`
    
    ```php
    // Jika menambah search
-       $produks = Produk::query()
+    public function index(Request $request) //Tambahkan Request untuk search
+    {
+        //Baris ini mengarahkan ke folder produk, file index.blade.php
+		// return response()->view('produk.index',['produks'=>Produk::all()]);
+        // Pagination tanpa searching
+        // return response()->view('produk.index',['produks'=>Produk::paginate(2)]);
+
+        // Pagination dan searching
+        // Jika menambah search
+  
+         $produks = Produk::query()
            ->when(
                $request->q,
                function (Builder $builder) use ($request) {
@@ -570,9 +583,11 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
            )
            ->paginate(2)->withQueryString();
        return view('produk.index', compact('produks'));
+
+    }
    ```
 
-2. Modifikasi View `layout/index.blade.php`
+2. Modifikasi View `layouts/index.blade.php` di atas `<table>`
     Letakkan di atas Tabel
    
    ```php
