@@ -558,11 +558,12 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
 ## 7. View Data dengan Searching
 
 1. Modifikasi `ProdukController.php` bagian index.
-    // Tambahan untuk search
-    `use Illuminate\Database\Eloquent\Builder;`
-   
+    
    ```php
-   // Jika menambah search
+    // Tambahan untuk search, letakkan di tempat sperti lainnya
+    use Illuminate\Database\Eloquent\Builder; 
+   
+   // Jika menambah search, maka pada fungsi index menjadi
     public function index(Request $request) //Tambahkan Request untuk search
     {
         //Baris ini mengarahkan ke folder produk, file index.blade.php
