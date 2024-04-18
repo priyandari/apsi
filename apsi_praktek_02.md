@@ -178,7 +178,7 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
    
 ### 5.2. View produk\index.blade.php
 
-1. Buat view index.blade.php, letakkan di dalam folder produk. Demikian juga untuk view lainnya.
+1. Buat view `index.blade.php`, letakkan di dalam folder `views/produk`. Demikian juga untuk view lainnya.
    
    ```php
    @extends('layouts.app')
@@ -237,7 +237,7 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
 
 ### 5.3. View produk\create.blade.php
 
-1. Buat view create.blade.php
+1. Buat view `create.blade.php` di dalam folder views/produk
    
    ```php
    @extends('layouts.app')
@@ -321,7 +321,7 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
        if($request->file('image')){
            $file= $request->file('image');
            $filename= date('YmdHi').$file->getClientOriginalName();
-           $file-> move(public_path('public/img'), $filename);
+           $file-> move(public_path('img'), $filename);
            $validateData['image']=$filename;
        }
        // Tambah atribut yang tidak memakai validasi. 
@@ -346,12 +346,14 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
    }
    
    ```
+4. Jangan lupa membuat folder img di dalam folder public ( `public/img`).
 
 4. Coba lakukan proses penambahan data. dan lihat hasilnya
+    ![Alt text](img/apsi_capstone13.jpg)
 
 ### 5.4. View produk\show.blade.php
 
-1. Buat view show.blade.php
+1. Buat view `show.blade.php` letakkan di dalam folder viewa/produk seperti lainnya
    
    ```php
    @extends('layouts.app')
@@ -461,7 +463,7 @@ Kelanjutan dari praktek sebelumnya adalah membuat CRUD (Create Read Update Delet
    @endsection
    ```
 
-2. Modifikasi controller pada bagian fungsi update.
+2. Modifikasi ProdukController pada bagian fungsi update.
    
    ```php
    // Tambahan untuk akses file
